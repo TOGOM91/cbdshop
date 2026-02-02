@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOLDEN HOUR CBD - California Dreaming</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800;900&family=Staatliches&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sunset-orange: #FF6B35;
+            --sunset-red: #FF4E50;
+            --sunset-pink: #FC9D9A;
+            --sunset-purple: #C774E8;
+            --sunset-yellow: #FDB44B;
+            --deep-purple: #4A148C;
+            --dark-blue: #1A1A2E;
+            --smoke-white: rgba(255, 255, 255, 0.15);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(180deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--sunset-orange);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 107, 53, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 20s infinite ease-in-out;
+        }
+
+        @keyframes particleFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* Sunset Sky Background */
+        .sunset-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(180deg, 
+                #0A0E27 0%,
+                #1A1A2E 10%,
+                #4A148C 25%,
+                #C774E8 45%,
+                #FF6B35 60%,
+                #FDB44B 75%,
+                #FF4E50 90%,
+                #FC9D9A 100%
+            );
+            background-size: 100% 200%;
+            animation: sunsetMove 30s ease-in-out infinite alternate;
+        }
+
+        @keyframes sunsetMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 0% 100%; }
+        }
+
+        /* Smoke/Cloud Effects */
+        .smoke-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .smoke {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 70%);
+            filter: blur(60px);
+            opacity: 0.6;
+            animation: smokeFloat 40s infinite ease-in-out;
+        }
+
+        .smoke1 {
+            width: 600px;
+            height: 600px;
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.3) 0%, rgba(255, 107, 53, 0.1) 40%, transparent 70%);
+        }
+
+        .smoke2 {
+            width: 800px;
+            height: 800px;
+            top: 30%;
+            right: -15%;
+            animation-delay: 8s;
+            background: radial-gradient(circle, rgba(253, 180, 75, 0.3) 0%, rgba(253, 180, 75, 0.1) 40%, transparent 70%);
+        }
+
+        .smoke3 {
+            width: 700px;
+            height: 700px;
+            bottom: -10%;
+            left: 20%;
+            animation-delay: 16s;
+            background: radial-gradient(circle, rgba(199, 116, 232, 0.3) 0%, rgba(199, 116, 232, 0.1) 40%, transparent 70%);
+        }
+
+        .smoke4 {
+            width: 500px;
+            height: 500px;
+            top: 60%;
+            left: -5%;
+            animation-delay: 24s;
+            background: radial-gradient(circle, rgba(252, 157, 154, 0.3) 0%, rgba(252, 157, 154, 0.1) 40%, transparent 70%);
+        }
+
+        .smoke5 {
+            width: 650px;
+            height: 650px;
+            top: 20%;
+            left: 40%;
+            animation-delay: 12s;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 70%);
+        }
+
+        @keyframes smokeFloat {
+            0%, 100% {
+                transform: translate(0, 0) scale(1) rotate(0deg);
+                opacity: 0.6;
+            }
+            25% {
+                transform: translate(100px, -80px) scale(1.2) rotate(90deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translate(-50px, 50px) scale(0.9) rotate(180deg);
+                opacity: 0.5;
+            }
+            75% {
+                transform: translate(80px, 30px) scale(1.1) rotate(270deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* Header Fog Effect */
+        .header-fog {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .fog-layer {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+            filter: blur(80px);
+            animation: fogMove 20s infinite ease-in-out;
+        }
+
+        .fog-layer:nth-child(1) {
+            animation-delay: 0s;
+            opacity: 0.3;
+        }
+
+        .fog-layer:nth-child(2) {
+            animation-delay: 7s;
+            opacity: 0.2;
+            animation-duration: 25s;
+        }
+
+        .fog-layer:nth-child(3) {
+            animation-delay: 14s;
+            opacity: 0.25;
+            animation-duration: 30s;
+        }
+
+        @keyframes fogMove {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(10%, -5%) rotate(5deg);
+            }
+            50% {
+                transform: translate(-5%, 10%) rotate(-5deg);
+            }
+            75% {
+                transform: translate(5%, -10%) rotate(3deg);
+            }
+        }
+
+        /* Palm Trees & California Elements */
+        .cali-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .palm {
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.15;
+            filter: blur(2px);
+            animation: palmSway 8s ease-in-out infinite;
+        }
+
+        .palm1 { bottom: 0; left: 5%; animation-delay: 0s; }
+        .palm2 { bottom: 0; right: 8%; animation-delay: 2s; font-size: 100px; }
+        .palm3 { bottom: 0; left: 40%; animation-delay: 4s; font-size: 90px; opacity: 0.1; }
+
+        @keyframes palmSway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Sunset Glow Effect */
+        .sunset-glow {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: radial-gradient(ellipse at bottom, 
+                rgba(255, 107, 53, 0.4) 0%,
+                rgba(253, 180, 75, 0.3) 20%,
+                rgba(252, 157, 154, 0.2) 40%,
+                transparent 70%
+            );
+            z-index: -1;
+            filter: blur(40px);
+            animation: glowPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.1); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 25px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .logo {
+            font-family: 'Staatliches', sans-serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--sunset-yellow), var(--sunset-orange), var(--sunset-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 107, 53, 0.5);
+            filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 45px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--sunset-orange), var(--sunset-yellow));
+            transition: width 0.4s;
+            box-shadow: 0 0 10px var(--sunset-orange);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-nav {
+            background: linear-gradient(135deg, var(--sunset-orange), var(--sunset-red));
+            padding: 14px 35px;
+            border-radius: 50px;
+            border: none;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.4s;
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(255, 107, 53, 0.6);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 0 60px;
+            text-align: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 160px;
+            line-height: 0.9;
+            letter-spacing: 8px;
+            margin-bottom: 30px;
+            background: linear-gradient(180deg, #fff 0%, var(--sunset-yellow) 40%, var(--sunset-orange) 70%, var(--sunset-red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1.2s ease-out;
+            filter: drop-shadow(0 0 40px rgba(255, 107, 53, 0.4));
+            text-shadow: 0 0 80px rgba(255, 107, 53, 0.8);
+        }
+
+        .hero .tagline {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            opacity: 0.9;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .hero .location {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+            opacity: 0.7;
+            animation: fadeInUp 1.6s ease-out;
+        }
+
+        .hero .location::before {
+            content: '🌴';
+            margin-right: 10px;
+        }
+
+        .hero .location::after {
+            content: '🌴';
+            margin-left: 10px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            animation: fadeInUp 1.8s ease-out;
+            flex-wrap: wrap;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--sunset-orange), var(--sunset-red));
+            padding: 22px 55px;
+            border-radius: 50px;
+            border: none;
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 15px 50px rgba(255, 107, 53, 0.5);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.7);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 22px 55px;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--sunset-orange);
+            transform: translateY(-5px);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.7;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), transparent);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-15px); }
+        }
+
+        /* Products Section */
+        .products {
+            padding: 150px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .section-title .subtitle {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--sunset-orange);
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 100px;
+            letter-spacing: 5px;
+            background: linear-gradient(135deg, white, var(--sunset-yellow), var(--sunset-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px) saturate(180%);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--sunset-orange), var(--sunset-pink));
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .product-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--sunset-orange);
+            box-shadow: 0 30px 80px rgba(255, 107, 53, 0.4);
+        }
+
+        .product-image {
+            height: 300px;
+            background: linear-gradient(135deg, 
+                rgba(255, 107, 53, 0.3), 
+                rgba(253, 180, 75, 0.3),
+                rgba(252, 157, 154, 0.3)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--sunset-orange);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+        }
+
+        .product-info {
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-category {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--sunset-yellow);
+            margin-bottom: 10px;
+        }
+
+        .product-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .product-description {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 36px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--sunset-yellow), var(--sunset-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, var(--sunset-orange), var(--sunset-red));
+            border: none;
+            padding: 14px 28px;
+            border-radius: 25px;
+            color: white;
+            font-weight: 800;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.4s;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.6);
+        }
+
+        /* About Section */
+        .about {
+            padding: 150px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 80px;
+            line-height: 0.95;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, white, var(--sunset-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content p {
+            font-size: 17px;
+            line-height: 1.8;
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .about-visual {
+            position: relative;
+            height: 500px;
+            border-radius: 40px;
+            background: linear-gradient(135deg, 
+                rgba(255, 107, 53, 0.4), 
+                rgba(253, 180, 75, 0.4),
+                rgba(199, 116, 232, 0.4)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 200px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Values Section */
+        .values {
+            padding: 150px 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 80px auto 0;
+        }
+
+        .value-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            padding: 45px 35px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--sunset-orange);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
+        }
+
+        .value-icon {
+            font-size: 70px;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5));
+        }
+
+        .value-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            color: var(--sunset-yellow);
+        }
+
+        .value-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 60px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-content h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 100px;
+            letter-spacing: 6px;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, white, var(--sunset-yellow), var(--sunset-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 0.95;
+        }
+
+        .cta-content p {
+            font-size: 22px;
+            opacity: 0.8;
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(30px);
+            padding: 80px 60px 40px;
+            border-top: 1px solid rgba(255, 107, 53, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 50px;
+            max-width: 1400px;
+            margin: 0 auto 50px;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Staatliches', sans-serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--sunset-yellow), var(--sunset-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 18px;
+        }
+
+        .footer-brand p {
+            opacity: 0.7;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 22px;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--sunset-orange), var(--sunset-red));
+            border-color: transparent;
+            transform: translateY(-5px);
+        }
+
+        .footer-links h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            color: var(--sunset-orange);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--sunset-orange);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 35px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.5;
+            font-size: 12px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--sunset-orange), var(--sunset-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.4s;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
+        }
+
+        .scroll-top::before {
+            content: '↑';
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .hero h1 { font-size: 120px; }
+            .section-title h2 { font-size: 80px; }
+            .cta-content h2 { font-size: 80px; }
+        }
+
+        @media (max-width: 1024px) {
+            nav { padding: 20px 40px; }
+            .hero h1 { font-size: 100px; }
+            .section-title h2 { font-size: 70px; }
+            .about-grid { 
+                grid-template-columns: 1fr; 
+                gap: 60px;
+            }
+            .about-visual { height: 400px; font-size: 150px; }
+            .footer-grid { 
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+            .products { padding: 100px 40px; }
+            .about { padding: 100px 40px; }
+            .values { padding: 100px 40px; }
+            .cta-section { padding: 100px 40px; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 18px 25px; }
+            .logo { font-size: 26px; }
+            .nav-links { 
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(26, 26, 46, 0.98);
+                backdrop-filter: blur(30px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 40px;
+                transition: left 0.4s;
+            }
+            .nav-links.active { left: 0; }
+            .nav-links a { font-size: 24px; }
+            .menu-toggle { display: flex; }
+            .cta-nav { display: none; }
+            
+            .hero { padding: 0 25px; }
+            .hero h1 { font-size: 60px; letter-spacing: 4px; }
+            .hero .tagline { font-size: 18px; letter-spacing: 3px; }
+            .hero .location { font-size: 14px; }
+            .hero-cta { gap: 15px; }
+            .btn-primary, .btn-secondary { 
+                padding: 18px 40px; 
+                font-size: 14px;
+            }
+            
+            .products { padding: 80px 25px; }
+            .section-title h2 { font-size: 50px; }
+            .section-title .subtitle { font-size: 12px; }
+            .product-grid { 
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .about { padding: 80px 25px; }
+            .about-content h2 { font-size: 50px; }
+            .about-content p { font-size: 15px; }
+            .about-visual { height: 300px; font-size: 120px; }
+            
+            .values { padding: 80px 25px; }
+            .values-grid { 
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-top: 50px;
+            }
+            
+            .cta-section { padding: 80px 25px; }
+            .cta-content h2 { font-size: 60px; }
+            .cta-content p { font-size: 18px; }
+            
+            footer { padding: 60px 25px 30px; }
+            .footer-grid { 
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .scroll-top { 
+                bottom: 25px;
+                right: 25px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .palm { font-size: 80px; }
+            .palm2 { font-size: 70px; }
+            .palm3 { font-size: 60px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 48px; }
+            .section-title h2 { font-size: 40px; }
+            .cta-content h2 { font-size: 48px; }
+            .product-name { font-size: 28px; }
+            .price { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Sunset Sky Background -->
+    <div class="sunset-bg"></div>
+
+    <!-- Smoke/Cloud Effects -->
+    <div class="smoke-container">
+        <div class="smoke smoke1"></div>
+        <div class="smoke smoke2"></div>
+        <div class="smoke smoke3"></div>
+        <div class="smoke smoke4"></div>
+        <div class="smoke smoke5"></div>
+    </div>
+
+    <!-- California Elements -->
+    <div class="cali-elements">
+        <div class="palm palm1">🌴</div>
+        <div class="palm palm2">🌴</div>
+        <div class="palm palm3">🌴</div>
+    </div>
+
+    <!-- Sunset Glow -->
+    <div class="sunset-glow"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">GOLDEN HOUR</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#shop">Shop</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#values">Quality</a></li>
+        </ul>
+        <button class="cta-nav">Visit Us</button>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <!-- Header Fog Effect -->
+        <div class="header-fog">
+            <div class="fog-layer"></div>
+            <div class="fog-layer"></div>
+            <div class="fog-layer"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">🌅 Premium CBD Shop</div>
+            <h1>GOLDEN<br>HOUR</h1>
+            <p class="tagline">California Dreaming</p>
+            <p class="location">West Coast Vibes • Premium Quality</p>
+            <div class="hero-cta">
+                <a href="#shop" class="btn-primary">Shop Now</a>
+                <a href="#about" class="btn-secondary">Our Story</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="shop">
+        <div class="section-title">
+            <p class="subtitle">Premium Collection</p>
+            <h2>OUR SELECTION</h2>
+        </div>
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">Bestseller</span>
+                    🌺
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Premium Flower</div>
+                    <h3 class="product-name">Sunset OG</h3>
+                    <p class="product-description">Indoor cultivé, 22% CBD. Arômes d'agrumes et de pin, notes tropicales intenses. California grown.</p>
+                    <div class="product-footer">
+                        <div class="price">34€</div>
+                        <button class="add-btn">Add Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">New Drop</span>
+                    🍯
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Premium Hash</div>
+                    <h3 class="product-name">Golden Sand</h3>
+                    <p class="product-description">Résine 38% CBD. Texture sableuse, profil terpénique exceptionnel. Extraction artisanale.</p>
+                    <div class="product-footer">
+                        <div class="price">42€</div>
+                        <button class="add-btn">Add Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    💧
+                </div>
+                <div class="product-info">
+                    <div class="product-category">CBD Oil</div>
+                    <h3 class="product-name">Pacific Drops</h3>
+                    <p class="product-description">Huile full spectrum 25%. Base MCT bio, extraction CO2. Goût naturel, absorption optimale.</p>
+                    <div class="product-footer">
+                        <div class="price">54€</div>
+                        <button class="add-btn">Add Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    🔥
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Vape Cartridge</div>
+                    <h3 class="product-name">Desert Fire</h3>
+                    <p class="product-description">Cartouche vape 65% CBD. Distillat pur, terpènes naturels. Effet immédiat, goût premium.</p>
+                    <div class="product-footer">
+                        <div class="price">39€</div>
+                        <button class="add-btn">Add Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    ☕
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Infusion</div>
+                    <h3 class="product-name">Sunset Tea</h3>
+                    <p class="product-description">Infusion CBD relaxante. Chanvre bio, verveine, camomille. Moment détente garanti.</p>
+                    <div class="product-footer">
+                        <div class="price">15€</div>
+                        <button class="add-btn">Add Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">Limited</span>
+                    ✨
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Bundle</div>
+                    <h3 class="product-name">Cali Pack</h3>
+                    <p class="product-description">Collection exclusive 3 produits. Fleur, résine et huile. Le meilleur de Golden Hour.</p>
+                    <div class="product-footer">
+                        <div class="price">99€</div>
+                        <button class="add-btn">Add Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="about-content">
+                <h2>CALIFORNIA SPIRIT</h2>
+                <p>Inspiré par les couchers de soleil légendaires de la côte californienne, Golden Hour CBD est né d'une passion pour le bien-être naturel et l'esprit de liberté du West Coast.</p>
+                <p>Chaque produit est une invitation au voyage, une célébration de la qualité premium et de l'authenticité. Du désert de Mojave aux plages de Malibu, nous capturons l'essence de la Californie dans chaque gramme.</p>
+                <p>Notre engagement : vous offrir une expérience CBD exceptionnelle, testée, certifiée et 100% tracée.</p>
+            </div>
+            <div class="about-visual">
+                🌅
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values" id="values">
+        <div class="section-title">
+            <p class="subtitle">Premium Standards</p>
+            <h2>OUR PROMISE</h2>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🔬</div>
+                <h3>Lab Tested</h3>
+                <p>Tous nos produits sont testés par des laboratoires indépendants. Résultats d'analyse disponibles sur demande.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🌱</div>
+                <h3>Organic Grown</h3>
+                <p>Culture 100% biologique sans pesticides ni produits chimiques. Respect de la plante et de l'environnement.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">✨</div>
+                <h3>Premium Quality</h3>
+                <p>Sélection rigoureuse des meilleures génétiques. Taux de CBD optimaux et terpènes préservés.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>FIND YOUR<br>GOLDEN HOUR</h2>
+            <p>Visitez notre boutique ou commandez en ligne</p>
+            <a href="#shop" class="btn-primary">Shop Collection</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>GOLDEN HOUR</h3>
+                <p>Premium CBD inspiré par la Californie. Qualité, authenticité et California dreaming dans chaque produit.</p>
+                <div class="social-links">
+                    <div class="social-link">📘</div>
+                    <div class="social-link">📷</div>
+                    <div class="social-link">🐦</div>
+                    <div class="social-link">🎵</div>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#">Flowers</a></li>
+                    <li><a href="#">Hash</a></li>
+                    <li><a href="#">Oils</a></li>
+                    <li><a href="#">Vapes</a></li>
+                    <li><a href="#">Bundles</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Info</h4>
+                <ul>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Lab Results</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Legal Notice</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Golden Hour CBD. All rights reserved. 18+ only • THC < 0.3% • Made with 🌅 in California spirit</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop"></div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const follower = document.querySelector('.cursor-follower');
+        
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+        
+        function animateCursor() {
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Cursor hover effects
+        document.querySelectorAll('a, button').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                follower.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+
+        // Generate Floating Particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Parallax effect on scroll for smoke and palms
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            // Smoke parallax
+            const smokes = document.querySelectorAll('.smoke');
+            smokes.forEach((smoke, index) => {
+                const speed = (index + 1) * 0.05;
+                smoke.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+
+            // Palms parallax
+            const palms = document.querySelectorAll('.palm');
+            palms.forEach((palm, index) => {
+                const speed = 0.3 + (index * 0.1);
+                palm.style.transform = `translateY(${-scrolled * speed}px)`;
+            });
+
+            // Scroll to top button visibility
+            const scrollTop = document.getElementById('scrollTop');
+            if (scrolled > 500) {
+                scrollTop.classList.add('visible');
+            } else {
+                scrollTop.classList.remove('visible');
+            }
+        });
+
+        // Scroll to top functionality
+        document.getElementById('scrollTop').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Product cards animation on scroll
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card, .value-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(60px)';
+            card.style.transition = 'all 0.8s ease-out';
+            observer.observe(card);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Add to cart animation
+        document.querySelectorAll('.add-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.innerHTML = '✓ Added';
+                this.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                setTimeout(() => {
+                    this.innerHTML = 'Add Cart';
+                    this.style.background = 'linear-gradient(135deg, var(--sunset-orange), var(--sunset-red))';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
